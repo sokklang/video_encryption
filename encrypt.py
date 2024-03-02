@@ -22,10 +22,10 @@ def encrypt_file(input_file, output_file, key):
         with open(input_file, 'rb') as in_file:
             while True:
                 chunk = in_file.read(chunk_size)
-                if len(chunk) == 0:
+                if not chunk:
                     break
-                else:
-                    # Pad the chunk if its length is not a multiple of 16
+                # Pad the chunk if its length is not a multiple of 16
+                if len(chunk) % AES.block_size != 0:
                     chunk = pad(chunk, AES.block_size)
                 out_file.write(cipher.encrypt(chunk))
 
